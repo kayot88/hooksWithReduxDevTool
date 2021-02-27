@@ -1,5 +1,5 @@
 import React from "react";
-import { actions } from "./withOutRedux";
+import { completeTodo, removeTodo } from "../reducers/todoSlicer";
 const Todo = ({ todo, dispatch }) => {
   return (
     <div>
@@ -8,19 +8,12 @@ const Todo = ({ todo, dispatch }) => {
       </span>
       <button
         onClick={() => {
-          dispatch({ type: actions.COMPLETE_TODO, payload: { id: todo.id } });
-          console.log("todo.id", todo.id);
+          dispatch(completeTodo({ id: todo.id }));
         }}
       >
         Complete
       </button>
-      <button
-        onClick={() => {
-          dispatch({ type: actions.REMOVE_TODO, payload: { id: todo.id } });
-        }}
-      >
-        Remove
-      </button>
+      <button onClick={() => dispatch(removeTodo({id: todo.id}))}>Remove</button>
     </div>
   );
 };

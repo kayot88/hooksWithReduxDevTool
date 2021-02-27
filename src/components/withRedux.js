@@ -1,44 +1,21 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodoAction } from "../reducers/todoSlicer";
 import Todo from "./Todo";
 
-export const actions = {
-  ADD_TODO: "ADD_TODO",
-  COMPLETE_TODO: "COMPLETE_TODO",
-  REMOVE_TODO: "REMOVE_TODO",
-};
+function WithReduxToolkit() {
 
-const reducer = (todos, { payload, type }) => {
-  switch (type) {
-    case "ADD_TODO":
-      return [...todos, addTodo(payload.name)];
-    case "COMPLETE_TODO":
-      return todos.map((todo) => {
-        if (todo.id === payload.id) {
-          return { ...todo, complete: !todo.complete };
-        }
-        return todo;
-      });
-    case "REMOVE_TODO":
-      return todos.filter((todo) => todo.id !== payload.id);
-    default:
-      return todos;
-  }
-};
-
-const addTodo = (name) => {
-  return { id: Date.now(), name: name, complete: false };
-};
-
-function WithoutRedux() {
   const [name, setName] = useState("");
-  const [todos, dispatch] = useReducer(reducer, []);
-
+  // console.log("todos", todos);
+  const dispatch = useDispatch();
+  
+  const { todos } = useSelector((state) => state.todos);
   const handleChange = (e) => {
     setName(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: "ADD_TODO", payload: { name: name } });
+    dispatch(addTodoAction(name));
     setName("");
   };
 
@@ -54,4 +31,4 @@ function WithoutRedux() {
   );
 }
 
-export default WithoutRedux;
+export default WithReduxToolkit;

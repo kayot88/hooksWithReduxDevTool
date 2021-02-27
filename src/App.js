@@ -1,17 +1,17 @@
 import React from "react";
 import WithoutRedux from "./components/withOutRedux";
-import WithRedux from "./components/withRedux";
+import WithReduxToolkit from "./components/withRedux";
 
 function App() {
   return (
     <div className="App">
       <div>
         without redux
-        <WithoutRedux />
+        {/* <WithoutRedux /> */}
       </div>
       <div>
         with redux
-        <WithRedux />
+        <WithReduxToolkit />
       </div>
     </div>
   );
